@@ -17,8 +17,6 @@ COPY conf/ /opt/docker/conf/jupyterhub/
 RUN mkdir -p /srv/jupyterhub/
 WORKDIR /srv/jupyterhub/
 
-#EXPOSE 8000 8001
-
 ENTRYPOINT ["/opt/docker/bin/entrypoint.sh"]
 CMD ["jupyterhub"]
 
