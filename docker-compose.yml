@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+
+  jupyterhub:
+    container_name: dmx-jupyterhub
+    hostname: jupyterhub
+    image: dimajix/jupyterhub:4.3.30
+    build: 
+      context: .
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+    command: jupyterhub
+    env_file:
+      - docker-compose.env
+    environment:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80/tcp"
+
+networks:
+  default:
+    external:
+      name: dimajix
+
