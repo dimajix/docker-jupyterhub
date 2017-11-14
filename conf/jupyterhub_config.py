@@ -282,12 +282,12 @@ c.DockerSpawner.network_name = network_name
 c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
 
-notebook_root = os.environ['JUPYTER_NOTEBOOK_DIR']
-notebook_dir = os.path.join(notebook_root,'{username}')
-notebook_volume = os.environ['JUPYTER_NOTEBOOK_VOLUME']
+notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
+notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
 c.DockerSpawner.notebook_dir = notebook_dir
-c.DockerSpawner.volumes = { notebook_volume: notebook_root }
-c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_root})
+c.DockerSpawner.volumes = { notebook_volume: notebook_dir }
+c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_dir})
+c.DockerSpawner.extra_create_kwargs.update({'volume_driver':os.environ['JUPYTER_NOTEBOOK_VOLUME_DRIVER']})
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #  
