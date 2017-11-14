@@ -273,11 +273,11 @@ c.JupyterHub.port = [% HUB_PROXY_PORT %]
 #  
 #  Should be a subclass of Spawner.
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
+c.DockerSpawner.cmd = os.environ['JUPYTER_COMMAND']
 c.DockerSpawner.image = os.environ['JUPYTER_DOCKER_IMAGE']
 
 # Connect containers to this Docker network
 network_name = os.environ['JUPYTER_DOCKER_NETWORK']
-c.DockerSpawner.cmd = os.environ['JUPYTER_DOCKER_COMMAND']
 c.DockerSpawner.network_name = network_name
 c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
