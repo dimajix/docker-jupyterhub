@@ -278,7 +278,7 @@ c.DockerSpawner.image = os.environ['JUPYTER_DOCKER_IMAGE']
 # Connect containers to this Docker network
 network_name = os.environ['JUPYTER_DOCKER_NETWORK']
 c.DockerSpawner.cmd = os.environ['JUPYTER_DOCKER_COMMAND']
-c.DockerSpawner.network_name = os.environ['JUPYTER_DOCKER_NETWORK']
+c.DockerSpawner.network_name = network_name
 c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
 
@@ -747,6 +747,19 @@ c.JupyterHub.ssl_key = os.environ['HUB_SSL_KEY']
 
 ## The name of the PAM service to use for authentication
 #c.PAMAuthenticator.service = 'login'
+
+#------------------------------------------------------------------------------
+# LDAPAuthenticator(Configurable) configuration
+#------------------------------------------------------------------------------
+c.JupyterHub.authenticator_class = 'ldapauthenticator.LDAPAuthenticator'
+c.LDAPAuthenticator.server_address = os.environ['LDAP_SERVER_ADDRESS']
+c.LDAPAuthenticator.server_port = int(os.environ['LDAP_SERVER_PORT'])
+c.LDAPAuthenticator.use_ssl = (os.environ['LDAP_SERVER_SSL'].lower() == "true")
+c.LDAPAuthenticator.bind_dn_template = os.environ['LDAP_USER_TEMPLATE']
+c.LDAPAuthenticator.allowed_groups = [os.environ['LDAP_USER_GROUP']]
+#c.LDAPAuthenticator.lookup_dn = True
+#c.LDAPAuthenticator.user_search_base = 'ou=People,dc=example,dc=com'
+#c.LDAPAuthenticator.user_attribute = 'sAMAccountName'
 
 #------------------------------------------------------------------------------
 # CryptKeeper(SingletonConfigurable) configuration

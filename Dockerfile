@@ -7,7 +7,7 @@ RUN conda install --yes \
           sqlalchemy tornado jinja2 traitlets requests pip pycurl \
           nodejs configurable-http-proxy jupyterhub \
           mysql-connector-python && \
-    pip install dockerspawner
+    pip install dockerspawner jupyterhub-ldapauthenticator
 
 # copy configs and binaries
 COPY bin/ /opt/docker/bin/
