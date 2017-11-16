@@ -286,6 +286,7 @@ notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
 notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
 c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.volumes = { notebook_volume: notebook_dir }
+c.DockerSpawner.env_keep = ['http_proxy','https_proxy','no_proxy','HTTP_PROXY','HTTPS_PROXY','NO_PROXY']
 c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_dir})
 c.DockerSpawner.extra_create_kwargs.update({'volume_driver':os.environ['JUPYTER_NOTEBOOK_VOLUME_DRIVER']})
 
