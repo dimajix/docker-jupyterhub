@@ -282,13 +282,24 @@ c.DockerSpawner.network_name = network_name
 c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
 
+volume_driver = os.environ['JUPYTER_DOCKER_VOLUME_DRIVER']
+if volume_driver:
+    c.DockerSpawner.extra_create_kwargs.update({'volume_driver':volume_driver})
+
+volumes = os.environ['JUPYTER_DOCKER_VOLUMES']
+if volumes:
+    volumes = [v.split(":") for v in volumes.split(",")]
+    volumes = {v[0]:dict(bind=v[1],mode='nocopy') for v in volumes}
+    c.DockerSpawner.volumes.update(volumes)
+
 notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
-notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
 c.DockerSpawner.notebook_dir = notebook_dir
-c.DockerSpawner.volumes = { notebook_volume: notebook_dir }
 c.DockerSpawner.env_keep = ['http_proxy','https_proxy','no_proxy','HTTP_PROXY','HTTPS_PROXY','NO_PROXY']
 c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_dir})
-c.DockerSpawner.extra_create_kwargs.update({'volume_driver':os.environ['JUPYTER_NOTEBOOK_VOLUME_DRIVER']})
+
+if os.environ['JUPYTER_NOTEBOOK_VOLUME']:
+    notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
+    c.DockerSpawner.volumes.update({ notebook_volume: notebook_dir })
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #  
