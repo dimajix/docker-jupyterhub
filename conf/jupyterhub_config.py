@@ -273,7 +273,7 @@ c.JupyterHub.port = [% HUB_PROXY_PORT %]
 #  
 #  Should be a subclass of Spawner.
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
-c.DockerSpawner.cmd = os.environ['JUPYTER_COMMAND']
+c.DockerSpawner.cmd = os.environ['JUPYTER_DOCKER_COMMAND']
 c.DockerSpawner.image = os.environ['JUPYTER_DOCKER_IMAGE']
 
 # Connect containers to this Docker network
@@ -295,7 +295,7 @@ if volumes:
 notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
 c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.env_keep = ['http_proxy','https_proxy','no_proxy','HTTP_PROXY','HTTPS_PROXY','NO_PROXY']
-c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_dir})
+c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR': lambda s: s.format_string(s.notebook_dir)})
 
 if os.environ['JUPYTER_NOTEBOOK_VOLUME']:
     notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
