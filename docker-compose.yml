@@ -5,7 +5,7 @@ services:
   jupyterhub:
     container_name: dmx-jupyterhub
     hostname: jupyterhub
-    image: dimajix/jupyterhub:4.3.30
+    image: dimajix/jupyterhub:4.5.4
     build: 
       context: .
       args:

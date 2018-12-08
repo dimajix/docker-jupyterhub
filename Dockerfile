@@ -1,4 +1,4 @@
-FROM dimajix/miniconda:4.3.30
+FROM dimajix/miniconda:4.5.4
 MAINTAINER Kaya Kupferschmidt <k.kupferschmidt@dimajix.de> 
 
 # install Python + NodeJS with conda 
