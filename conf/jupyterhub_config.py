@@ -273,7 +273,7 @@ c.JupyterHub.port = [% HUB_PROXY_PORT %]
 #  
 #  Should be a subclass of Spawner.
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
-c.DockerSpawner.cmd = os.environ['JUPYTER_COMMAND']
+c.DockerSpawner.cmd = os.environ['JUPYTER_DOCKER_COMMAND']
 c.DockerSpawner.image = os.environ['JUPYTER_DOCKER_IMAGE']
 
 # Connect containers to this Docker network
@@ -283,11 +283,19 @@ c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
 
 notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
-notebook_volume = os.path.join(os.environ['JUPYTER_NOTEBOOK_VOLUME'],'{username}')
+docker_volumes = {}
+if os.environ['JUPYTER_DOCKER_VOLUMES']:
+    volumes = os.environ['JUPYTER_DOCKER_VOLUMES'].split(",")
+    docker_volumes.update({ v.split(":")[0]: {"bind":v.split(":")[1], "mode":"nocopy"} for v in volumes })
+if os.environ['JUPYTER_NOTEBOOK_VOLUME']:
+    volume = os.environ['JUPYTER_NOTEBOOK_VOLUME']
+    docker_volumes.update({ volume:notebook_dir})
 c.DockerSpawner.notebook_dir = notebook_dir
-c.DockerSpawner.volumes = { notebook_volume: notebook_dir }
-c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':notebook_dir})
-c.DockerSpawner.extra_create_kwargs.update({'volume_driver':os.environ['JUPYTER_NOTEBOOK_VOLUME_DRIVER']})
+c.DockerSpawner.volumes = docker_volumes
+c.DockerSpawner.environment.update({'JUPYTER_NOTEBOOK_DIR':lambda spawner: spawner.format_string(notebook_dir)})
+
+
+#c.DockerSpawner.extra_create_kwargs.update({'volume_driver':os.environ['JUPYTER_NOTEBOOK_VOLUME_DRIVER']})
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #  
