@@ -1,9 +1,9 @@
-FROM dimajix/miniconda:4.5.4
+FROM dimajix/miniconda:4.8.2
 MAINTAINER Kaya Kupferschmidt <k.kupferschmidt@dimajix.de> 
 
 # install Python + NodeJS with conda 
 RUN conda install --yes \
-          -c conda-forge python=3.6 \
+          python=3.7 \
           sqlalchemy tornado jinja2 traitlets requests pip pycurl \
           nodejs configurable-http-proxy jupyterhub \
           mysql-connector-python && \

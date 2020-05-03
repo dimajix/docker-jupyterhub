@@ -9,6 +9,9 @@ start_hub() {
     jupyterhub --config /etc/jupyter/jupyterhub_config.py
 }
 
+upgrade_db() {
+    jupyterhub upgrade-db --config /etc/jupyter/jupyterhub_config.py
+}
 
 main() {
     case "$1" in
@@ -16,6 +19,10 @@ main() {
             start_hub
             exit $?
             ;;
+	"upgrade-db")
+	    upgrade_db
+	    exit $?
+	    ;;
         *)
             exec $@
             exit $?

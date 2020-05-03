@@ -275,6 +275,7 @@ c.JupyterHub.port = [% HUB_PROXY_PORT %]
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
 c.DockerSpawner.cmd = os.environ['JUPYTER_DOCKER_COMMAND']
 c.DockerSpawner.image = os.environ['JUPYTER_DOCKER_IMAGE']
+c.DockerSpawner.default_url = '/lab'
 
 # Connect containers to this Docker network
 network_name = os.environ['JUPYTER_DOCKER_NETWORK']
