@@ -2,12 +2,9 @@ FROM dimajix/miniconda:4.8.2
 MAINTAINER Kaya Kupferschmidt <k.kupferschmidt@dimajix.de> 
 
 # install Python + NodeJS with conda 
-RUN conda install --yes \
-          python=3.7 \
-          sqlalchemy tornado jinja2 traitlets requests pip pycurl \
-          nodejs configurable-http-proxy jupyterhub \
-          mysql-connector-python && \
-    pip install dockerspawner jupyterhub-ldapauthenticator
+COPY environment.yml /tmp/
+RUN conda env update -f /tmp/environment.yml && \
+    conda clean --all
 
 # copy configs and binaries
 COPY bin/ /opt/docker/bin/

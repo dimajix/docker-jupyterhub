@@ -1,0 +1,21 @@
+name: base
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - sqlalchemy 
+  - tornado
+  - jinja2
+  - traitlets
+  - requests
+  - pip
+  - pycurl
+  - nodejs 
+  - configurable-http-proxy 
+  - jupyterhub
+  - mysql-connector-python 
+  - pip:
+    - dockerspawner 
+    - jupyterhub-ldapauthenticator
+

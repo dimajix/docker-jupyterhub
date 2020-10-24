@@ -284,7 +284,7 @@ c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 c.DockerSpawner.use_internal_ip = True
 
 notebook_dir = os.environ['JUPYTER_NOTEBOOK_DIR']
-docker_volumes = {}
+docker_volumes = { }
 if os.environ['JUPYTER_DOCKER_VOLUMES']:
     volumes = os.environ['JUPYTER_DOCKER_VOLUMES'].split(",")
     docker_volumes.update({ v.split(":")[0]: {"bind":v.split(":")[1], "mode":"nocopy"} for v in volumes })
