@@ -5,7 +5,7 @@ services:
   jupyterhub:
     container_name: dmx-jupyterhub
     hostname: jupyterhub
-    image: dimajix/jupyterhub:2020.10
+    image: dimajix/jupyterhub:2023.05
     build: 
       context: .
       args:

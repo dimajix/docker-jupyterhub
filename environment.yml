@@ -3,18 +3,25 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7
-  - sqlalchemy 
-  - tornado
-  - jinja2
-  - traitlets
-  - requests
+  - configurable-http-proxy=4.5.4
+  - jinja2=3.1.2
+  - jupyterhub=4.0.0
+  - mako=1.2.4
+  - mysql-connector-python
+  - nodejs>=18.0.0
+  - pamela=1.0.0
   - pip
-  - pycurl
-  - nodejs 
-  - configurable-http-proxy 
-  - jupyterhub
-  - mysql-connector-python 
+  - pycurl=7.45.1
+  - pysocks=1.7.1
+  - python=3.9
+  - requests=2.29.0
+  - setuptools=65.6.3
+  - six=1.16.0
+  - sqlalchemy=1.4.36
+  - tornado=6.1
+  - traitlets=5.9.0
+  - urllib3=1.26.15
+  - websocket-client=1.5.1
   - pip:
     - dockerspawner 
     - jupyterhub-ldapauthenticator
